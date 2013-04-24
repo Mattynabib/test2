@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- adding the Viewport meta tag is critical for true responsiveness! -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- let's use a few web fonts to keep it looking nice -->
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative|Cardo' rel='stylesheet' type='text/css'>
+
+<!-- Here's the main style sheet -->
+<link rel="stylesheet" href="styles/test2.css" type="text/css" />
+
+<!-- Now we throw in some JS and JQuery to bring interaction -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+<script>
+
+<!-- This part handles the "back to top" link toggle; thanks Brian Cray -->
+$(function () {
+    var scroll_timer;
+    var displayed = false;
+    var $backToTop = $('#backToTop a');
+    var $window = $(window);
+    var top = $(document.body).children(0).position().top;
+	$backToTop.fadeOut(0);
+
+    /* react to scroll event on window */
+    $window.scroll(function () {
+        window.clearTimeout(scroll_timer);
+        scroll_timer = window.setTimeout(function () {
+            if($window.scrollTop() <= top+100)
+            {
+                displayed = false;
+                $backToTop.fadeOut(500);
+            }
+            else if(displayed == false)
+            {
+                displayed = true;
+                $backToTop.stop(true, true).show().click(function () { $backToTop.fadeOut(500); });
+            }
+        });
+    });
+});
+
+</script>
+
+<!-- This bit makes the nav menu button clickable when the layout 
+     gets small, and it makes accordion items clickable -->
+
+<script>
+$(document).ready(function() {
+  $('body').addClass('js');
+  var $menu = $('#menu'),
+    $menulink = $('.menu-link');
+
+$menulink.click(function() {
+  $menulink.toggleClass('active');
+  $menu.toggleClass('active');
+  $("#mainContent").toggleClass('pushDown');
+  return false;
+});
+if ($("#wrapper").width() > 496) {
+	$("#mainContent").removeClass('pushDown');
+	$menulink.removeClass('active');
+  	$menu.removeClass('active');
+}
+
+$('.accordionitem').click(function() {
+	  $(this).toggleClass('openMe');
+	  return false;
+	});
+
+});
+</script>
+
+<title>RWD Test 2</title>
+</head>
+
+<body>
+<div id="top"></div>
+<div id="outer">
+  <div id="wrapper">
+    <header>
+      <div id="logo">Logo</div>
+      <a href="#menu" class="menu-link"><img src="img/menu_icon.png" /></a>
+      <nav id="menu" role="navigation">
+        <ul>
+          <li><a href="#">Nav1</a></li>
+          <li><a href="#">Nav2</a></li>
+          <li><a href="#">Nav3</a></li>
+          <li><a href="#">Nav4</a></li>
+          <li><a href="#">Nav5</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="backToTop"><a href="#top">back<br />
+      to top</a></div>
+    <div id="mainContent">
+      <h2>Test 2: Getting more responsive...</h2>
+      <section class="articlePlain">
+        <p><img class="articleImg" src="http://placekitten.com/g/150/200" />Now we're cookin... this second pass includes several things: First, this version now has two breakpoints: the first one at 48em that drops everything to one column, and now a second one at 31em that further narrows things by making the nav into a collapsible menu. Most importantly, we now have a &lt;viewport&gt; tag that lets mobile devices parse the page properly upon load, and display it more appropriately for that context.</p>
+        <p>This version also introduces a whole bunch of JQuery. The first bit is simply to activate the accordion items. There is also some to deal with the new menu-nav, detecting the user's click and opening or closing the menu. Finally, there's some to make our new "Back To Top" link show up when enouigh scrolling has happened.</p>
+        <p>Oh, and the smashing kitten image to the right is provided courtesy of placekitten.com. It has a little more personality than placehold.it, and while I like Flickholder.com in theory, the initial load time to pull in an image seems pretty slow. And who doesn't love kittens?</p>
+      </section>
+      <div class="clearasil"></div>
+      <section class="accordion">
+        <div class="accordionitem">
+          <h3>This is an accordion item header</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lectus enim. In hac habitasse platea dictumst. Nam est diam, lobortis sit amet lobortis et, viverra id nunc. Maecenas purus magna, consectetur nec lobortis nec, commodo vel nunc. Nunc nec diam dolor, ac eleifend massa. Fusce commodo, urna vel ultrices feugiat, odio nunc eleifend magna, ut scelerisque justo nisl a felis. Etiam molestie ullamcorper posuere. Mauris euismod scelerisque magna, eu pellentesque dolor tempus at.</p>
+        </div>
+        <div class="accordionitem">
+          <h3>Yet another accordion item header</h3>
+          <p>Praesent lobortis laoreet pharetra. Integer ornare tempus ante, fringilla aliquet nibh adipiscing quis. Fusce et feugiat sem. Sed id auctor velit. Nullam arcu libero, suscipit non consequat in, ultricies eget leo. Fusce semper porttitor enim sit amet ultricies. Aliquam consequat nibh quis nisi ullamcorper sodales.</p>
+        </div>
+        <div class="accordionitem">
+          <h3>A third accordion item header</h3>
+          <p>Aliquam dignissim rhoncus libero sit amet facilisis. Maecenas feugiat arcu vitae nisi condimentum faucibus. Morbi diam lorem, condimentum vitae suscipit id, mollis a dolor. Morbi non ligula id nisi fermentum bibendum vel sit amet dolor. Sed egestas, magna id ultricies molestie, urna diam dictum orci, ut fermentum eros mi nec lorem. Fusce tincidunt, velit nec congue elementum, mauris metus egestas est, et posuere lectus arcu ac odio. Phasellus rhoncus mauris vestibulum sapien molestie quis bibendum erat porta. Donec vestibulum gravida enim a lacinia.</p>
+        </div>
+      </section>
+    </div>
+    <section id="sideBar">
+      <div class="sideItem">
+        <h2>Side item header</h2>
+        <p>This is the first side item</p>
+      </div>
+      <div class="sideItem">
+        <h2>Item 2 header</h2>
+        <p>Yet another side item</p>
+      </div>
+    </section>
+    <section id="sidebox">
+      <h2>A different side item</h2>
+      <p>Info here</p>
+    </section>
+  </div>
+  <footer>Footer here</footer>
+</div>
+</body>
+</html>
